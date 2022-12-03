@@ -38,7 +38,7 @@ export const Solve = new Command()
   .option("--two", "Run only the second half", { conflicts: ["one"] })
   .type("day", new DayType())
   .arguments("<day:day>")
-  .action(async ({ test }, day) => {
+  .action(async ({ test, one, two }, day) => {
     const { a, b } = (await import(`../days/day${day}.ts`)).default as {
       a: DayHalfFunc;
       b: DayHalfFunc;
@@ -46,12 +46,16 @@ export const Solve = new Command()
     if (test) {
       const { a: aCases, b: bCases } = await getTestCases(day);
 
-      const aResults = (
-        await Promise.all(aCases.map((testCase) => runTest(testCase, a)))
-      ).map((res) => ["a", res.in, res.expected, res.got, res.msg]);
-      const bResults = (
-        await Promise.all(bCases.map((testCase) => runTest(testCase, b)))
-      ).map((res) => ["b", res.in, res.expected, res.got, res.msg]);
+      const aResults = !two
+        ? (
+            await Promise.all(aCases.map((testCase) => runTest(testCase, a)))
+          ).map((res) => ["a", res.in, res.expected, res.got, res.msg])
+        : [];
+      const bResults = !one
+        ? (
+            await Promise.all(bCases.map((testCase) => runTest(testCase, b)))
+          ).map((res) => ["b", res.in, res.expected, res.got, res.msg])
+        : [];
 
       new Table()
         .header(["Part", "In", "Expected", "Got", "Message"])
@@ -59,7 +63,7 @@ export const Solve = new Command()
         .render();
     } else {
       const file = await Deno.readTextFile(`input_data/day${day}.txt`);
-      console.log("Part 1: ", a(file));
-      console.log("Part 2: ", b(file));
+      !two && console.log("Part 1: ", a(file));
+      !one && console.log("Part 2: ", b(file));
     }
   });
