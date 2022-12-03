@@ -21,7 +21,7 @@ class DayType extends Type<number> {
     try {
       Deno.statSync(`days/day${value}.ts`);
       return day;
-    } catch (e) {
+    } catch (_e) {
       throw new ValidationError(`Module days/day${value}.ts not found`);
     }
   }
@@ -46,7 +46,6 @@ export const Solve = new Command()
     if (test) {
       const { a: aCases, b: bCases } = await getTestCases(day);
 
-      console.log(aCases, bCases);
       const aResults = (
         await Promise.all(aCases.map((testCase) => runTest(testCase, a)))
       ).map((res) => ["a", res.in, res.expected, res.got, res.msg]);
