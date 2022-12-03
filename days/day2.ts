@@ -1,57 +1,36 @@
 import { day } from "./interface.ts";
 
-const scoreElfVsHuman = {
-  A: {
-    X: 3,
-    Y: 6,
-    Z: 0,
-  },
-  B: {
-    X: 0,
-    Y: 3,
-    Z: 6,
-  },
-  C: {
-    X: 6,
-    Y: 0,
-    Z: 3,
-  },
-};
-const elfToHuman = {
-  A: {
-    X: "Z",
-    Y: "X",
-    Z: "Y",
-  },
-  B: {
-    X: "X",
-    Y: "Y",
-    Z: "Z",
-  },
-  C: {
-    X: "Y",
-    Y: "Z",
-    Z: "X",
-  },
-};
-const score = {
-  X: 1,
-  Y: 2,
-  Z: 3,
-};
+const scoreElfVsHuman = [
+  3, //"A X"
+  6, //"A Y"
+  0, //"A Z"
+  0, //"B X"
+  3, //'B Y'
+  6, //'B Z'
+  6, //'C X'
+  0, //'C Y'
+  3, //'C Z'
+];
+const elfToHuman = [
+  2, //"A X" = "Z"
+  0, //"A Y" = "X"
+  1, //"A Z" = "Y"
+  0, //"B X" = "X"
+  1, //'B Y' = "Y"
+  2, //'B Z' = "Z"
+  1, //'C X' = "Y"
+  2, //'C Y' = "Z"
+  0, //'C Z' = "X"
+];
 
 const day: day = {
-  a: (file: string) =>
+  a: (file) =>
     file
       .split("\n")
       .map((round) => {
-        const plays = round.split(" ");
-        if (plays.length !== 2) {
-          console.error(`Bad: ${round}`);
-        }
-        const elf = plays[0] as "A" | "B" | "C";
-        const human = plays[1] as "X" | "Y" | "Z";
-        return scoreElfVsHuman[elf][human] + score[human];
+        const elf = 3 * (round.charCodeAt(0) - 65);
+        const human = round.charCodeAt(2) - 88;
+        return scoreElfVsHuman[elf + human] + human + 1;
       })
       .reduce((cur, next) => cur + next, 0)
       .toString(),
@@ -59,16 +38,9 @@ const day: day = {
     file
       .split("\n")
       .map((round) => {
-        const plays = round.split(" ");
-        if (plays.length !== 2) {
-          console.error(`Bad: ${round}`);
-        }
-        const elf = plays[0] as "A" | "B" | "C";
-        const human = elfToHuman[elf][plays[1] as "X" | "Y" | "Z"] as
-          | "X"
-          | "Y"
-          | "Z";
-        return scoreElfVsHuman[elf][human] + score[human];
+        const elf = 3 * (round.charCodeAt(0) - 65);
+        const human = elfToHuman[elf + (round.charCodeAt(2) - 88)];
+        return scoreElfVsHuman[elf + human] + human + 1;
       })
       .reduce((cur, next) => cur + next, 0)
       .toString(),
