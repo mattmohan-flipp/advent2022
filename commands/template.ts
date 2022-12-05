@@ -54,6 +54,10 @@ export const Template = new Command()
     }
     const copyProm = Deno.copyFile(`templates/dayX.ts`, `days/day${day}.ts`);
 
+    if (!fileExists(".login/credentials.json")) {
+      console.log("Not logged in, skipping API download");
+      return copyProm;
+    }
     if (!api) {
       return copyProm;
     }
