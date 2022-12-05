@@ -32,9 +32,11 @@ class DayType extends Type<number> {
 }
 
 export const Template = new Command()
+  .description("Create new source files and pull the input data from the API")
   .type("day", new DayType())
   .arguments("[day:day]")
-  .action(async (_opts, dayParam) => {
+  .option("--no-api", "Skip the AoC API request phase")
+  .action(async ({ api }, dayParam) => {
     let day = dayParam;
     while (!day || day < 1 || day > 25 || fileExists(`days/day${day}.ts`)) {
       if (fileExists(`days/day${day}.ts`)) {
@@ -50,6 +52,31 @@ export const Template = new Command()
         suggestions: Array(25).map((_e, i) => i),
       });
     }
+    const copyProm = Deno.copyFile(`templates/dayX.ts`, `days/day${day}.ts`);
 
-    await Deno.copyFile(`templates/dayX.ts`, `days/day${day}.ts`);
+    if (!api) {
+      return copyProm;
+    }
+    if (fileExists(`input_data/day${day}.txt`)) {
+      console.log("Input exists. Skipping download...");
+      return copyProm;
+    }
+    const credsProm = Deno.readTextFile(".login/credentials.json");
+
+    const creds = JSON.parse(await credsProm);
+
+    const url = new URL(
+      `https://adventofcode.com/${creds.year}/day/${day}/input`
+    );
+    const headers = new Headers({
+      cookie: `session=${creds.token}`,
+    });
+    const inputReq = await fetch(url, { headers });
+    if (!inputReq.ok) {
+      throw new Error("Failed to fetch the input data");
+    }
+    const inputData = await inputReq.text();
+    const writeProm = Deno.writeTextFile(`input_data/day${day}.txt`, inputData);
+
+    return Promise.all([copyProm, writeProm]);
   });

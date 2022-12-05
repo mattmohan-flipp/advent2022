@@ -32,6 +32,7 @@ class DayType extends Type<number> {
   }
 }
 export const Solve = new Command()
+  .description("Solve the specified day")
   .option("-t, --test", "Run on test data instead of production")
   .group("Day halves")
   .option("--one", "Run only the first half")
