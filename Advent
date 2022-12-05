@@ -1,2 +1,2 @@
 #!/bin/sh
-deno run --allow-read=days,input_data,test_data --allow-net=api.github.com  runner.ts "$@"
+deno run --allow-read=days,input_data,test_data,templates --allow-write=days --allow-net=api.github.com  runner.ts "$@"
