@@ -1,5 +1,5 @@
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/command.ts";
-import { Input } from "https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts";
+import { Command } from "cliffy/command/command.ts";
+import { Input } from "cliffy/prompt/mod.ts";
 
 export const Login = new Command()
   .description("Provide the user session required to access the AoC API")

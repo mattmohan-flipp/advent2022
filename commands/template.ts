@@ -3,9 +3,9 @@ import {
   ArgumentValue,
   ValidationError,
   Type,
-} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { Number } from "https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts";
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
+} from "cliffy/command/mod.ts";
+import { Number } from "cliffy/prompt/mod.ts";
+import { colors } from "cliffy/ansi/colors.ts";
 
 const fileExists = (fname: string): boolean => {
   try {

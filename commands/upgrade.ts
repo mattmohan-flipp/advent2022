@@ -1,7 +1,4 @@
-import {
-  UpgradeCommand,
-  GithubProvider,
-} from "https://deno.land/x/cliffy@v0.25.4/command/upgrade/mod.ts";
+import { UpgradeCommand, GithubProvider } from "cliffy/command/upgrade/mod.ts";
 
 export const Upgrade = new UpgradeCommand({
   main: "runner.ts",

@@ -2,11 +2,11 @@ import {
   Command,
   CompletionsCommand,
   HelpCommand,
-} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
+} from "cliffy/command/mod.ts";
 import { Solve } from "./commands/solve.ts";
 import { Template } from "./commands/template.ts";
 import { Login } from "./commands/login.ts";
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
+import { colors } from "cliffy/ansi/colors.ts";
 //import { Upgrade } from "./commands/upgrade.ts";
 
 const command = new Command()

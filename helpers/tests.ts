@@ -1,6 +1,4 @@
-import { boolean } from "https://deno.land/x/cliffy@v0.25.4/flags/types/boolean.ts";
-import { string } from "https://deno.land/x/cliffy@v0.25.4/flags/types/string.ts";
-import { day, DayHalfFunc } from "../days/interface.ts";
+import { DayHalfFunc } from "../days/interface.ts";
 
 interface TestCase {
   in: string;

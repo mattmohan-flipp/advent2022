@@ -3,10 +3,10 @@ import {
   ArgumentValue,
   ValidationError,
   Type,
-} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
+} from "cliffy/command/mod.ts";
 
 import { DayHalfFunc } from "../days/interface.ts";
-import { Table } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
+import { Table } from "cliffy/table/mod.ts";
 
 import { getTestCases, runTest } from "../helpers/tests.ts";
 
