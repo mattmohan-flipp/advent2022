@@ -1,3 +1,6 @@
+/**
+ * Parse the input and return a 2d array of tree heights
+ */
 const parseGrid = (file: string) =>
   file
     .trim()
@@ -9,14 +12,21 @@ const parseGrid = (file: string) =>
         .map((e) => parseInt(e, 10))
     );
 
+/**
+ * Calculate the number of trees visible in this direction
+ */
 const scoreArray = (arr: number[], target: number): number => {
   const result = arr.findIndex((e) => e >= target);
   if (result >= 0) {
     return result + 1;
   }
+  // Not found, so we can see to the edge
   return arr.length;
 };
 
+/**
+ * Find how many trees are visible from the top of this tree
+ */
 const scoreCell = (grid: number[][], row: number, col: number): number => {
   const curr = grid[row][col];
   const column = grid.map((r) => r[col]);
@@ -71,18 +81,17 @@ const day = {
       .reduce((a, c) => a + c, 0)
       .toString();
   },
-  b: (file: string): string => {
-    const grid = parseGrid(file);
-    const score = grid.reduce(
-      (previousScore, row, i) =>
-        row.reduce(
-          (previousScore, _cell, j) =>
-            Math.max(scoreCell(grid, i, j), previousScore),
-          previousScore
-        ),
-      1
-    );
-    return score.toString();
-  },
+  b: (file: string): string =>
+    parseGrid(file)
+      .reduce(
+        (previousScore, row, i, grid) =>
+          row.reduce(
+            (previousScore, _cell, j) =>
+              Math.max(scoreCell(grid, i, j), previousScore),
+            previousScore
+          ),
+        1
+      )
+      .toString(),
 };
 export default day;
