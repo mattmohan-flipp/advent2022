@@ -2,6 +2,7 @@
   "imports": {
     "/": "./",
     "./": "./",
-    "cliffy/": "https://deno.land/x/cliffy@v0.25.5/"
+    "cliffy/": "https://deno.land/x/cliffy@v0.25.5/",
+    "std/": "https://deno.land/std@0.167.0/"
   }
 }
