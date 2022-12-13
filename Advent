@@ -1,2 +1,2 @@
 #!/bin/sh
-deno run --import-map=import_map.json --allow-read=days,input_data,test_data,templates,.login,"/Users/mattmohan/Library/Fonts/Droid Sans Mono Nerd Font Complete.otf" --allow-write=.login,days,input_data,out.gif --allow-net=api.github.com,adventofcode.com,deno.land  runner.ts "$@"
+deno run --import-map=import_map.json --allow-read=./,"/Users/mattmohan/Library/Fonts/Droid Sans Mono Nerd Font Complete.otf" --allow-write=.login,days,input_data,out.gif,test_data --allow-net=api.github.com,adventofcode.com,deno.land  runner.ts "$@"
