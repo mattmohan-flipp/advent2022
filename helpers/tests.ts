@@ -63,7 +63,7 @@ export const runTest = async (
       ...testCase,
       expected: "N/A",
       got: "",
-      msg: `Exception Thrown: ${JSON.stringify(e)}`,
+      msg: `Exception Thrown: ${e}`,
     };
   }
 };

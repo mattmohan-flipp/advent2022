@@ -53,6 +53,11 @@ export const Template = new Command()
       });
     }
     const copyProm = Deno.copyFile(`templates/dayX.ts`, `days/day${day}.ts`);
+    const testDirMkdirProm = Deno.mkdir(`test_data/day${day}`);
+
+    const testDirProm = testDirMkdirProm
+      .then(() => Deno.writeTextFile(`test_data/day${day}/1.in.txt`, ""))
+      .then(() => Deno.writeTextFile(`test_data/day${day}/1.a.out.txt`, ""));
 
     if (!fileExists(".login/credentials.json")) {
       console.log("Not logged in, skipping API download");
@@ -82,5 +87,5 @@ export const Template = new Command()
     const inputData = await inputReq.text();
     const writeProm = Deno.writeTextFile(`input_data/day${day}.txt`, inputData);
 
-    return Promise.all([copyProm, writeProm]);
+    return Promise.all([copyProm, writeProm, testDirProm]);
   });
